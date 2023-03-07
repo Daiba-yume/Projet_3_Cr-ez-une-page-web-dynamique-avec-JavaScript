@@ -1,12 +1,13 @@
+let allProjects = [];
 fetch("http://localhost:5678/api/works")
   .then((response) => {
     if (response.ok) return response.json();
   })
   .then((projets) => {
     console.log(projets);
-
+    allProjects = projets;
     displayProjects(projets);
-    createFilter(projets);
+    setButtonListener();
   })
   .catch((error) => {
     console.log(error);
@@ -15,19 +16,27 @@ fetch("http://localhost:5678/api/works")
     );
   });
 
-function createFilter(projets) {
-  // coder la creation des filter
+function createFilter(tableauDeRecherche, SearchCategoryId) {
+  let tableauResultat = tableauDeRecherche.filter(
+    (element) => element.categoryId == SearchCategoryId
+  );
+
+  console.log(tableauResultat);
+  return tableauResultat;
 }
-function displayProjects(projets) {
+
+function displayProjects(projects) {
   const gallery = document.querySelector(".gallery");
-  projets.forEach((element) => {
+  gallery.innerHTML = "";
+  projects.forEach((element) => {
     const figure = displayProject(element);
     gallery.appendChild(figure);
   });
 }
+
 function displayProject(projet) {
   const figure = document.createElement("figure");
-
+  figure.setAttribute("data_id", projet.id);
   const img = document.createElement("img");
   img.setAttribute("src", projet.imageUrl);
   img.setAttribute("alt", projet.title);
@@ -38,5 +47,30 @@ function displayProject(projet) {
   figure.appendChild(img);
   figure.appendChild(figcaption);
 
+  figure.addEventListener("click", function (event) {
+    console.log(this);
+  });
   return figure;
+}
+
+function filter(criteria) {
+  console.log(criteria);
+  const listFilter = ["Tous", "Objets", "Appartements", "Hôtels et restaurant"];
+  const listIdFilter = [-1, 1, 2, 3];
+
+  let pos = listFilter.findIndex((element) => element == criteria);
+  console.log("l index du mot ", criteria, "est:", pos);
+  if (pos == 0) {
+    displayProjects(allProjects);
+  } else {
+    console.log("index:", pos, " listIdFilter[index]", listIdFilter[pos]);
+    let tableauResult = createFilter(allProjects, listIdFilter[pos]);
+    displayProjects(tableauResult);
+  }
+}
+
+function setButtonListener() {
+  // recuperer la liste des boutons
+  // boucler sur cette liste et pour chaque element tu va
+  // ajouter un event listener('click') avec le text du bouton
 }

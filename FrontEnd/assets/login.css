@@ -1,0 +1,107 @@
+body {
+  max-width: 1140px;
+  margin: auto;
+  font-family: "Work Sans";
+  font-size: 14px;
+  background-color: #fffef8;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 0;
+}
+section {
+  margin: 50px 0;
+}
+
+h1 {
+  display: flex;
+  flex-direction: column;
+  font-family: "Syne";
+  font-size: 22px;
+  font-weight: 800;
+  color: #b1663c;
+}
+
+h1 > span {
+  font-family: "Work Sans";
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+h2 {
+  font-family: "Syne";
+  font-weight: 700;
+  font-size: 30px;
+  color: #1d6154;
+}
+nav ul {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+}
+nav li {
+  padding: 0 10px;
+  font-size: 1.2em;
+}
+
+li:hover {
+  color: #b1663c;
+}
+
+#container {
+  width: 400px;
+  margin: auto;
+  margin-top: 10%;
+}
+
+form {
+  width: 100%;
+  padding: 30px;
+}
+#container h1 {
+  width: 38%;
+  margin: auto;
+  padding-left: 40px;
+  padding-bottom: 20px;
+  color: #1d6154;
+}
+
+input[type="text"],
+input[type="password"] {
+  height: 30px;
+  width: 370px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ffffff;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+input[type="submit"] {
+  font-family: "syne";
+  font-size: 15px;
+  font-weight: 700;
+  border: 1px solid #1d6154;
+  padding: 0.5em 1.5em 0.5em 1.5em;
+  margin-left: 120px;
+  border-radius: 3em;
+  background-color: #1d6154;
+  color: #ffffff;
+}
+
+a {
+  margin-left: 125px;
+  color: black;
+}
+
+footer {
+  background-color: white;
+}
+
+footer nav {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2em;
+  background-color: white;
+}
