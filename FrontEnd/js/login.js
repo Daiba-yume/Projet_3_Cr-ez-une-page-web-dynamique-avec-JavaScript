@@ -1,15 +1,30 @@
-function validateForm() {
-  var un = document.loginform.usr.value;
-  var pw = document.loginform.pword.value;
-  var username = "username";
-  var password = "password";
-  if (un == username && pw == password) {
-    window.location = "login.html";
-    return false;
-  } else {
-    alert("Erreur dans l'identifiant ou le mot de passe");
-  }
-}
+let form = document.getElementById("form");
 
-let user = "";
-let paswd = "";
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+  console.log("test");
+
+  let email = document.getElementById("email").value;
+  console.log(email);
+  let password = document.getElementById("password").value;
+  console.log(password);
+
+  let options = {
+    method: "POST",
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    body: JSON.stringify({ email: email, password: password }),
+  };
+
+  fetch("http://localhost:5678/api/users/login", options)
+    .then((response) => {
+      console.log(response);
+      if (response.ok) return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      // stoker les info dans le localStorage
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});

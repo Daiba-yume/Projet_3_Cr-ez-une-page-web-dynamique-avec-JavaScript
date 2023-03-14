@@ -96,12 +96,13 @@ a {
 }
 
 footer {
+  height: 60px;
   background-color: white;
 }
 
 footer nav {
   display: flex;
   justify-content: flex-end;
-  margin: 2em;
+
   background-color: white;
 }

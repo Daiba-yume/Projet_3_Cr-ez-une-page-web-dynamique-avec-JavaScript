@@ -71,6 +71,14 @@ function filter(criteria) {
 
 function setButtonListener() {
   // recuperer la liste des boutons
+  let listButton = document.querySelectorAll(".button-value");
   // boucler sur cette liste et pour chaque element tu va
-  // ajouter un event listener('click') avec le text du bouton
+  listButton.forEach((element) => {
+    // ajouter un event listener('click') avec le text du bouton
+    element.addEventListener("click", function (event) {
+      console.log(this.textContent);
+      let criteria = this.textContent.trim();
+      filter(criteria);
+    });
+  });
 }
