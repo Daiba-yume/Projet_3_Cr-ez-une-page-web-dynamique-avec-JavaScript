@@ -1,4 +1,5 @@
 let allProjects = [];
+let listCategories = ["Tous"];
 fetch("http://localhost:5678/api/works")
   .then((response) => {
     if (response.ok) return response.json();
@@ -7,7 +8,7 @@ fetch("http://localhost:5678/api/works")
     console.log(projets);
     allProjects = projets;
     displayProjects(projets);
-    setButtonListener();
+    getAllGategories();
   })
   .catch((error) => {
     console.log(error);
@@ -15,15 +16,6 @@ fetch("http://localhost:5678/api/works")
       "Une erreur est survenue! Veuillez contacter l'administrateur du site!! "
     );
   });
-
-function createFilter(tableauDeRecherche, SearchCategoryId) {
-  let tableauResultat = tableauDeRecherche.filter(
-    (element) => element.categoryId == SearchCategoryId
-  );
-
-  console.log(tableauResultat);
-  return tableauResultat;
-}
 
 function displayProjects(projects) {
   const gallery = document.querySelector(".gallery");
@@ -53,32 +45,42 @@ function displayProject(projet) {
   return figure;
 }
 
-function filter(criteria) {
-  console.log(criteria);
-  const listFilter = ["Tous", "Objets", "Appartements", "Hôtels et restaurant"];
-  const listIdFilter = [-1, 1, 2, 3];
+function getAllGategories() {
+  allProjects.forEach((projet) => {
+    let category = projet.category.name;
+    if (!listCategories.includes(category)) {
+      listCategories.push(category);
+    }
+  });
 
-  let pos = listFilter.findIndex((element) => element == criteria);
-  console.log("l index du mot ", criteria, "est:", pos);
-  if (pos == 0) {
-    displayProjects(allProjects);
-  } else {
-    console.log("index:", pos, " listIdFilter[index]", listIdFilter[pos]);
-    let tableauResult = createFilter(allProjects, listIdFilter[pos]);
-    displayProjects(tableauResult);
-  }
+  createFilterButtons();
 }
-
-function setButtonListener() {
-  // recuperer la liste des boutons
-  let listButton = document.querySelectorAll(".button-value");
-  // boucler sur cette liste et pour chaque element tu va
-  listButton.forEach((element) => {
+function createFilterButtons() {
+  listCategories.forEach((category) => {
+    const button = createFilterButton(category);
     // ajouter un event listener('click') avec le text du bouton
-    element.addEventListener("click", function (event) {
-      console.log(this.textContent);
-      let criteria = this.textContent.trim();
+    button.addEventListener("click", function (event) {
+      let criteria = category;
       filter(criteria);
     });
+    document.getElementById("buttons").appendChild(button);
   });
+}
+
+function createFilterButton(category) {
+  const button = document.createElement("button");
+  button.setAttribute("class", "button-value");
+  button.textContent = category;
+  return button;
+}
+
+function filter(category) {
+  if (category === "Tous") {
+    displayProjects(allProjects);
+  } else {
+    let tableauResult = allProjects.filter(
+      (projet) => projet.category.name === category
+    );
+    displayProjects(tableauResult);
+  }
 }
