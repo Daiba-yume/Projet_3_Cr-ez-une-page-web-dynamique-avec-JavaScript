@@ -50,6 +50,10 @@ li:hover {
   color: #b1663c;
 }
 
+.login-tab {
+  display: none;
+}
+
 #container {
   width: 400px;
   margin: auto;

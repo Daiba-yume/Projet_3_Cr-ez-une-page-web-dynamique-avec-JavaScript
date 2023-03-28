@@ -47,3 +47,8 @@ function createModal() {
   const section = document.getElementById("introduction");
   section.appendChild(myModal);
 }
+
+// Empêche le click à l'intérieur du contenu (donc pas de prop vers les parents)
+const stopPropagation = function (e) {
+  e.stopPropagation();
+};
