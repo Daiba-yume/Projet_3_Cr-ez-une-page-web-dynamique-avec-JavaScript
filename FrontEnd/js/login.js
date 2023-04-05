@@ -19,39 +19,26 @@ form.addEventListener("submit", function (event) {
     .then((response) => {
       console.log(response);
       if (response.ok) return response.json();
+      if (response.status == 404) {
+        alert("Veuillez verifier le login et ou le mot de passe saisis !!");
+        return null;
+      }
     })
     .then((data) => {
-      console.log(data);
+      if (data != null) {
+        console.log(data);
 
-      // stoker les info dans le localStorage
-      localStorage.setItem("access_token", data.token);
+        // stoker les info dans le localStorage
+        localStorage.setItem("access_token", data.token);
+        localStorage.setItem("userId", data.userId);
 
-      localStorage.setItem("userId", data.userId);
-
-      window.location.href = "/FrontEnd/";
+        window.location.href = "./index.html";
+      }
     })
     .catch((error) => {
       console.log(error);
-      alert("Veuillez introduire un login et mot de passe valides ! ");
+      alert(
+        "Une erreur est survenue ! Veuillez contacter l'administrateur du site !!  ! "
+      );
     });
-
-  const formLog = document.querySelector(".logout-tab");
-
-  formLog.addEventListener("click", function (event) {
-    event.preventDefault();
-    window.localStorage.clear();
-
-    window.location.href = "login.html";
-
-    const user = window.localStorage.getItem("token");
-    console.log(user);
-    const login = document.querySelector(".login-tab");
-    const logout = document.querySelector(".logout-tab");
-
-    if (user) {
-      logout.style.display = "block";
-    } else {
-      login.style.display = "block";
-    }
-  });
 });

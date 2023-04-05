@@ -9,6 +9,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
+	<script src="https://kit.fontawesome.com/0b6d538c32.js" crossorigin="anonymous"></script>
 	<meta name="description" content="">
 	<script src="./js/projets.js"></script>
 	<link rel="stylesheet" href="./assets/style.css">
@@ -30,7 +31,7 @@
 				<li>projets</li>
 				<li>contact</li>
 				<li><a href="login.html" class="login-tab">login</a></li>
-				<li><a href="" class="logout-tab">logout</a></li>
+				<li><a href="index.html" class="logout-tab">logout</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -43,7 +44,7 @@
 				<img src="./assets/images/sophie-bluel.png" alt="">
 				<div id="figure-modify">
 					<i class="fa-regular fa-pen-to-square"></i>
-					<button id="editProfile" class="modify-a">modifier</button>
+					<div id="editProfile" class="modify-a">modifier</div>
 				</div>
 			</figure>
 
@@ -58,47 +59,13 @@
 					décorateur(trice)</p>
 			</article>
 		</section>
-		<section id="modal">
-			<div id="modal-content">
-				<h2>Galerie photo</h2>
-				<div class="gallery-modal"></div>
-				<button id="modal-close"><i class="fa-solid fa-xmark"></i></button>
-				<button type="button" id="new-photo">Ajouter une photo</button>
-				<button type="button" id="delete-gallery">Supprimer la gallery</button>
-			</div>
-			<div id="modal-photo" style="display : none;">
-				<h2>Ajout photo</h2>
-				<form enctype="multipart/form-data" method="POST">
-					<div id="form-photo-div">
-						<i class="fa-regular fa-image" id="iModalImage" style="color: #c5c6c9;"></i>
-						<label for="image" id="label-image">+ Ajouter une photo</label>
-						<input type="file" name="image" id="image" style="display: none;">
-						<p>jpg,png : 4mo max</p>
-					</div>
-					<div class="modal-photo-input">
-						<label for="title">Titre</label>
-						<input type="text" name="title" id="modal-photo-title">
-					</div>
-					<div class="modal-photo-input" id="barre-grise">
-						<label for="category">Catégorie</label>
-						<select name="category" id="modal-photo-category">
-							<option value="" selected></option>
-							<option value="1">Objets</option>
-							<option value="2">Appartements</option>
-							<option value="3">Hotels & restaurants</option>
-						</select>
-					</div>
-					<input type="submit" value="Valider" id="modal-valider">
-				</form>
-				<div id="modal-photo-close"><i class="fa-solid fa-xmark"></i></div>
-				<button id="modal-photo-close"><i class="fa-solid fa-xmark"></i></button>
-				<button id="modal-return"><i class="fa-solid fa-arrow-left"></i></button>
-			</div>
-		</section>
 
 		<section id="portfolio">
 			<h2>Mes Projets</h2>
-
+			<div id="projects-modify">
+				<i class="fa-regular fa-pen-to-square"></i>
+				<button id="editProject" class="modify-a">modifier</button>
+			</div>
 			<div id="buttons">
 
 			</div>
@@ -129,6 +96,45 @@
 			</ul>
 		</nav>
 	</footer>
+
+	<div id="modalAjout">
+
+		<h2>Ajout photo</h2>
+
+		<form enctype=" multipart/form-data" method="POST">
+			<div id="form-photo-div">
+				<i class="fa-regular fa-image" id="iModalImage"></i>
+				<label for="image" id="label-image">+ Ajouter une photo</label>
+				<input type="file" name="image" id="image">
+				<p>jpg,png : 4mo max</p>
+			</div>
+			<div class="modal-photo-input">
+				<label for="title">Titre</label>
+				<input type="text" name="title" id="modal-photo-title">
+			</div>
+			<div class="modal-photo-input" id="barre-grise">
+				<label for="category">Catégorie</label>
+				<select name="category" id="modal-photo-category">
+					<option value="" selected></option>
+
+				</select>
+			</div>
+			<input type="submit" value="Valider" id="modal-valider">
+		</form>
+		<div id="modal-photo-close"><i class="fa-solid fa-xmark"></i></div>
+		<button id="modal-photo-close"><i class="fa-solid fa-xmark"></i></button>
+		<button id="modal-return"><i class="fa-solid fa-arrow-left"></i></button>
+	</div>
+
+	<div id="modal-Galerie">
+		<h2>Galerie photo</h2>
+		<div class="modal-content"></div>
+		<button id="modal-close"><i class="fa-solid fa-xmark"></i></button>
+		<button type="button" id="new-photo">Ajouter une photo</button>
+		<button type="button" id="delete-gallery">Supprimer la gallery</button>
+
+	</div>
+
 
 
 

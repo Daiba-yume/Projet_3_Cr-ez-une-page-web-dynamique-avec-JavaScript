@@ -9,6 +9,7 @@ fetch("http://localhost:5678/api/works")
     allProjects = projets;
     displayProjects(projets);
     getAllGategories();
+    checkEdit();
   })
   .catch((error) => {
     console.log(error);
@@ -82,5 +83,32 @@ function filter(category) {
       (projet) => projet.category.name === category
     );
     displayProjects(tableauResult);
+  }
+}
+
+function checkEdit() {
+  let editProfile = document.getElementById("figure-modify");
+  let editProjects = document.getElementById("projects-modify");
+  let login = document.querySelector(".login-tab");
+  let logout = document.querySelector(".logout-tab");
+  // activer le logout
+
+  logout.addEventListener("click", function (event) {
+    console.log("logout");
+    localStorage.clear();
+  });
+  if (
+    localStorage.getItem("userId") != null &&
+    localStorage.getItem("access_token") != null
+  ) {
+    editProfile.style.display = "block";
+    editProjects.style.display = "block";
+    login.style.display = "none";
+    logout.style.display = "block";
+  } else {
+    editProfile.style.display = "none";
+    editProjects.style.display = "none";
+    login.style.display = "block";
+    logout.style.display = "none";
   }
 }
