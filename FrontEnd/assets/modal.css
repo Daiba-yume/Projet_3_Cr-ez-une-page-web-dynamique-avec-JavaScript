@@ -1,89 +1,35 @@
 /* For the global Modal*/
-#modal-Galerie {
-  display: none;
-  position: fixed;
-  z-index: 1;
+#modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-/* For the global Modal*/
-
-#modalAjout {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-}
-
-#modal-content {
-  background-color: #fff;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 650px;
-  text-align: center;
-  position: relative;
-  max-height: 670px;
+.modal-body {
   display: flex;
   flex-direction: column;
+  gap: 20px;
   align-items: center;
+  background-color: white; /* Fallback color */
+  padding: 30px;
+  border: 2px #f2f2f2 solid;
+  border-radius: 15px;
+  max-width: 650px;
+  width: 50%;
+  position: relative;
 }
 
-#modal-content h2 {
+.modal-title {
   color: black;
   margin-top: 20px;
   font-weight: lighter;
-}
-
-.gallery-modal {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(3, auto);
-
-  grid-row-gap: 20px;
-  grid-column-gap: 10px;
-  margin: 40px 80px 0px 80px;
-  padding-bottom: 30px;
-  border-bottom: solid 2px #d0d0d0;
-}
-
-.gallery-modal figure {
-  position: relative;
-  height: 135px;
-}
-
-.gallery-modal img {
-  max-width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.gallery-modal figure {
-  position: relative;
-}
-
-.gallery-modal figure i {
-  position: absolute;
-  color: white;
-  top: 3px;
-  right: 3px;
-  width: 15px;
-  height: 15px;
-  cursor: pointer;
-  padding: 4px;
-  background-color: black;
-  border: none;
-  border-radius: 5px;
 }
 
 #modal-close {
@@ -103,6 +49,55 @@
   display: block;
 }
 
+/* css approprié à la modale content avec la liste des galerie photos */
+
+.gallery-photo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gallery-photo-card {
+  position: relative;
+  height: 130px;
+  width: 85px;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-photo-card-img {
+  height: auto;
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+}
+
+.gallery-photo-card img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.editer {
+  height: 20px;
+}
+.gallery-photo-card i {
+  position: absolute;
+  color: white;
+  top: 3px;
+  right: 3px;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  padding: 4px;
+  background-color: black;
+  border: none;
+  border-radius: 5px;
+}
+/* fin de la modale galelry  */
+
+/* modale d'ajout */
 #new-photo {
   font-family: "Syne";
   font-weight: 700;
@@ -128,33 +123,7 @@
 }
 
 /**for modal content */
-#modal-photo {
-  display: none;
-  background-color: #fff;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 650px;
-  text-align: center;
-  position: relative;
-  max-height: 660px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-#modal-photo h2 {
-  color: black;
-  margin-top: 20px;
-  font-weight: lighter;
-}
 
-#modal-photo form {
-  display: flex;
-  flex-direction: column;
-  padding: 30px 100px 30px 100px;
-}
 #form-photo-div {
   height: 180px;
   display: flex;

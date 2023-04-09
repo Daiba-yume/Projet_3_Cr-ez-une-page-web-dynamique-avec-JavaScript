@@ -1,14 +1,21 @@
 // Show and hide modal //
 const editProjects = document.getElementById("editProject");
-const modal = document.querySelector("#modal-Galerie");
+const modal = document.getElementById("modal");
+
 editProjects.addEventListener("click", function (event) {
-  const contentEdit = editContentModal();
+  const modalTitle = document.querySelector(".modal-title");
+  modalTitle.textContent = "Galerie photo";
+
   const modalContent = document.querySelector(".modal-content");
+  const contentEdit = editAllProjects();
+  //  const contentEdit = createOneProject();
   modalContent.appendChild(contentEdit);
+
   showModal();
 });
 
 const modalClose = document.querySelector("#modal-close");
+
 modalClose.addEventListener("click", hideModal);
 function showModal() {
   modal.style.display = "block";
@@ -17,110 +24,55 @@ function hideModal() {
   modal.style.display = "none";
 }
 
-//************************ */
-/*
-const modalPhoto = document.querySelector("#modal-photo");
+function editAllProjects() {
+  const galleryPhoto = document.createElement("div");
+  galleryPhoto.setAttribute("class", "gallery-photo");
 
-modalContent.addEventListener("click", function (e) {
-  e.stopPropagation();
-});
-modalPhoto.addEventListener("click", function (e) {
-  e.stopPropagation();
-});
-
-modal.addEventListener("click", hideModal);
-modalContent.addEventListener("click", function (e) {
-  e.stopPropagation();
-});
-*/
-
-// affichage de la modal photo //
-/*
-const newPhotoBtn = document.querySelector("#new-photo");
-const returnBtn = document.querySelector("#modal-return");
-const modalPhotoClose = document.querySelector("#modal-photo-close");
-newPhotoBtn.addEventListener("click", function () {
-  modalContent.style.display = "none";
-  modalPhoto.style.display = "block";
-});
-returnBtn.addEventListener("click", function () {
-  modalContent.style.display = "flex";
-  modalPhoto.style.display = "none";
-});
-modalPhotoClose.addEventListener("click", hideModal);
-
-// ajout des travaux dans la modal //
-const imagesModalContainer = document.querySelector(".gallery-modal");
-/*
-const reponses = fetch("http://localhost:5678/api/works")
-  .then((reponse) => reponse.json())
-  .then((datas) => {
-    datas.forEach((works) => {
-
-    });
-  });
-*/
-
-function editContentModal() {
-  const div = document.createElement("div");
   // boucler sur le tableau et creer la liste des element
   allProjects.forEach((element) => {
     const card = createOneCard(element);
-    div.appendChild(card);
+    galleryPhoto.appendChild(card);
   });
+
   // Ajouter les deux bouton en bas de ajouter et supprimer
-  /* const newPhotoBtn = document.getElementById("new-photo");
-  newPhotoBtn.addEventListener("click", function () {
-    modalContent.style.display = "none";
-    modalPhoto.style.display = "block";
-  });
+  const newPhotoBtn = document.getElementById("new-photo");
+  newPhotoBtn.addEventListener("click", function () {});
 
   const deleteG = document.getElementById("delete-gallery");
-  deleteG.addEventListener("click", function () {
-    modalContent.style.display = "flex";
-    modalPhoto.style.display = "block";
-  }); */
+  deleteG.addEventListener("click", function () {});
 
   // retourne finalement une dv globale qui contient que le content de edit
-  return div;
-}
-
-function createProjectContentModal() {
-  // creer en javascript les element pour l'ajout d'un projet
-  const addNewProject = document.createElement("div");
-  // photo
-  const img = document.createElement("img");
-  img.src = imageUrl;
-  // titre
-  const titleImg = document.createElement("p");
-  titleImg.textContent = "";
-  // liste des categorie
-  getAllGategories;
-  // retourne finalement une dv globale qui contient que le visuel de create Project
-  return addNewProject;
+  return galleryPhoto;
 }
 
 function createOneCard(works) {
   const figure = document.createElement("figure");
-  const figureCaption = document.createElement("figcaption");
-  const figureImage = document.createElement("img");
-  const deleteIcon = document.createElement("i");
-
-  figureImage.src = works.imageUrl;
-  figureImage.alt = works.title;
-  figureCaption.innerHTML = "éditer";
+  figure.setAttribute("class", "gallery-photo-card");
   figure.setAttribute("data-id", works.id); // Add a data-id attribute to store the work ID
-  deleteIcon.className = "fa-regular fa-trash-can";
 
+  const figureImage = document.createElement("div");
+  figureImage.setAttribute("class", "gallery-photo-card-img");
   figure.appendChild(figureImage);
-  figure.appendChild(figureCaption);
-  figure.appendChild(deleteIcon);
+
+  const image = document.createElement("img");
+  image.src = works.imageUrl;
+  image.alt = works.title;
+  figureImage.appendChild(image);
+
+  const deleteIcon = document.createElement("i");
+  deleteIcon.className = "fa-regular fa-trash-can";
   // Ajout d'un event de suppression lors du click sur l'icon supprimer
   deleteIcon.addEventListener("click", (event) => {
     event.stopPropagation();
     event.preventDefault();
     //deleteWorkById(works.id);
   });
+  figure.appendChild(deleteIcon);
+
+  const figureCaption = document.createElement("figcaption");
+  figureCaption.setAttribute("class", "editer");
+  figureCaption.textContent = "éditer";
+  figure.appendChild(figureCaption);
 
   return figure;
 }
@@ -177,3 +129,5 @@ function createOneCard(works) {
 //     })
 //     .catch((error) => console.error(error));
 // }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

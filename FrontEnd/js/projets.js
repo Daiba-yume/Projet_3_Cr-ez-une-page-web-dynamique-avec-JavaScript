@@ -89,6 +89,9 @@ function filter(category) {
 function checkEdit() {
   let editProfile = document.getElementById("figure-modify");
   let editProjects = document.getElementById("projects-modify");
+  let adminStatus = document.getElementById("admin-logged");
+  let description = document.getElementById("figure-modify-a");
+  let buttons = document.getElementById("buttons");
   let login = document.querySelector(".login-tab");
   let logout = document.querySelector(".logout-tab");
   // activer le logout
@@ -103,11 +106,17 @@ function checkEdit() {
   ) {
     editProfile.style.display = "block";
     editProjects.style.display = "block";
+    adminStatus.style.display = "flex";
+    description.style.display = "flex";
+    buttons.style.display = "none";
     login.style.display = "none";
     logout.style.display = "block";
   } else {
     editProfile.style.display = "none";
     editProjects.style.display = "none";
+    adminStatus.style.display = "none";
+    description.style.display = "none";
+    buttons.style.display = "flex";
     login.style.display = "block";
     logout.style.display = "none";
   }
