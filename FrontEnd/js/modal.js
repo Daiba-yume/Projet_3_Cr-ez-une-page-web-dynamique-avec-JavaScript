@@ -1,27 +1,41 @@
 // Show and hide modal //
 const editProjects = document.getElementById("editProject");
 const modal = document.getElementById("modal");
+const modalClose = document.querySelector("#modal-close");
+const modalReturn = document.querySelector("#modal-return");
+const modalGallery = document.querySelector(".modalGallery");
+const modalAjout = document.querySelector(".modalAjout");
+const newPhoto = document.getElementById("new-photo");
 
 editProjects.addEventListener("click", function (event) {
-  const modalTitle = document.querySelector(".modal-title");
-  modalTitle.textContent = "Galerie photo";
-
-  const modalContent = document.querySelector(".modal-content");
+  const modalContent = document.querySelector(".listGallery");
   const contentEdit = editAllProjects();
-  //  const contentEdit = createOneProject();
   modalContent.appendChild(contentEdit);
 
+  //fillCategories();
   showModal();
 });
 
-const modalClose = document.querySelector("#modal-close");
-
 modalClose.addEventListener("click", hideModal);
+newPhoto.addEventListener("click", hideGallery);
+modalReturn.addEventListener("click", hideAjout);
+
 function showModal() {
   modal.style.display = "block";
 }
 function hideModal() {
   modal.style.display = "none";
+}
+function hideGallery() {
+  modalGallery.style.display = "none";
+  modalAjout.style.display = "flex";
+  console.log(modalReturn);
+  modalReturn.style.visibility = "unset";
+}
+function hideAjout() {
+  modalGallery.style.display = "flex";
+  modalAjout.style.display = "none";
+  modalReturn.style.visibility = "hidden";
 }
 
 function editAllProjects() {
@@ -63,9 +77,9 @@ function createOneCard(works) {
   deleteIcon.className = "fa-regular fa-trash-can";
   // Ajout d'un event de suppression lors du click sur l'icon supprimer
   deleteIcon.addEventListener("click", (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    //deleteWorkById(works.id);
+    // event.stopPropagation();
+    // event.preventDefault();
+    deleteWorkById(works.id);
   });
   figure.appendChild(deleteIcon);
 
@@ -77,30 +91,118 @@ function createOneCard(works) {
   return figure;
 }
 
-/// Ajout d'un new projet //
+function fillCategories() {
+  const selectCategory = document.getElementById("modal-photo-category");
+
+  listCategories.forEach((category) => {
+    console.log(category);
+    const categoryOption = document.createElement("option");
+
+    categoryOption.setAttribute("value", category.id);
+    categoryOption.setAttribute("text", category.name);
+    selectCategory.appendChild(categoryOption);
+  });
+}
+//DELETE WORK//
+function deleteWorkById(worksId) {
+  const token = localStorage.getItem("access_token");
+  /*
+  const confirmation = confirm(
+    "Êtes-vous sûr de vouloir supprimer ce travail ?"
+  );*/
+  //if (confirmation)
+  {
+    fetch(`http://localhost:5678/api/works/${worksId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (response.status !== 204) {
+          alert("La supression du travail à echoué!");
+        } else {
+          console.log("test");
+          // supprimer l'element depuis le tableau des all project
+          //let pos =allProjects.findIndex((element) => (element.id == ${worksId}));
+          // allProjects.slice(pos, 1);
+          allProjects = allProjects.filter((element) => element.id !== worksId);
+          /*
+          //sinon eliminer le projet depuis la modale
+          const modalWorkToRemove = document.querySelector(
+            `figure[data-id="${worksId}"]`
+          );
+          if (modalWorkToRemove) {
+            //modalWorkToRemove.remove();
+          }
+          console.log("test2");
+          //Supprimer le projet depuis la gallery
+
+          const galleryWorkToRemove = document.querySelector(
+            `figure[data-id="${worksId}"]`
+          );
+          if (galleryWorkToRemove) {
+            // galleryWorkToRemove.remove();
+          }*/
+        }
+      })
+      .catch((error) => console.error(error));
+  }
+}
+
+//Delete all gallery//
+/*
+function deleteGallery() {
+  const token = localStorage.getItem("token");
+  const galleryWorks = document.querySelectorAll(
+    ".gallery-modal figure, .gallery figure"
+  );
+  galleryWorks.forEach((galleryWork) => {
+    const workId = galleryWork.getAttribute("data-id");
+    fetch(`http://localhost:5678/api/works/${workId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        Content: "multipart/form-data",
+      },
+    });
+    galleryWork.remove();
+  });
+}
+
+document
+  .getElementById("delete-gallery")
+  .addEventListener("click", function () {
+    const confirmation = confirm(
+      "Êtes-vous sûr de vouloir supprimer la galerie ?"
+    );
+    if (confirmation) {
+      deleteGallery();
+    }
+  });
+
+function createOneProject() {}
+
+// // Add new Work
 // const btnValider = document.getElementById("modal-valider");
 // btnValider.addEventListener("click", addNewWork);
-
 // function addNewWork(event) {
 //   event.preventDefault();
-
-//   const token = sessionStorage.getItem("Token");
-
+//   const token = localStorage.getItem("access_token");
 //   const title = document.getElementById("modal-photo-title").value;
 //   const category = document.getElementById("modal-photo-category").value;
 //   const image = document.getElementById("image").files[0];
-
 //   if (!title || !category || !image) {
 //     alert("Veuillez remplir tous les champs du formulaire.");
 //     return;
 //   }
-
 //   //check if the image does not exceed 4mo//
 //   if (image.size > 4 * 1024 * 1024) {
 //     alert("La taille de l'image ne doit pas dépasser 4 Mo.");
 //     return;
 //   }
-
 //   const formData = new FormData();
 //   formData.append("title", title);
 //   formData.append("category", category);
@@ -111,23 +213,21 @@ function createOneCard(works) {
 //     headers: {
 //       Accept: "application/json",
 //       Authorization: `Bearer ${token}`,
+//       Content: "multipart/form-data",
 //     },
 //   })
 //     .then((response) => response.json())
 //     .then((works) => {
 //       //create and add the new work to the gallery//
-//       const figure = createProjectContentModal(works);
+//       const figure = displayProject(works);
 //       const gallery = document.querySelector(".gallery");
 //       gallery.appendChild(figure);
-
 //       //create and add the new work to the modal gallery//
-//       const figureModal = createProjectContentModal(works);
-//       const galleryModal = document.querySelector(".gallery-modal");
+//       const figureModal = createOneCard(works);
+//       const galleryModal = document.querySelector(".content-modal");
 //       galleryModal.appendChild(figureModal);
-
-//       alert("Le nouvel travail a été ajouté avec succès.");
+//       alert("Le nouveau travail a été ajouté avec succès.");
 //     })
 //     .catch((error) => console.error(error));
 // }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/

@@ -9,7 +9,7 @@
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  background-color: #0000004d; /* Black w/ opacity */
 }
 
 .modal-body {
@@ -21,21 +21,32 @@
   padding: 30px;
   border: 2px #f2f2f2 solid;
   border-radius: 15px;
-  max-width: 650px;
-  width: 50%;
-  position: relative;
+  width: 630px;
+  height: 731px;
 }
 
-.modal-title {
-  color: black;
-  margin-top: 20px;
-  font-weight: lighter;
+.modalHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#modal-return {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  visibility: hidden;
+}
+
+#modal-return i {
+  font-size: 1.3em;
+  display: block;
 }
 
 #modal-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
   width: 30px;
   height: 30px;
   cursor: pointer;
@@ -48,14 +59,28 @@
   font-size: 1.3em;
   display: block;
 }
-
 /* css approprié à la modale content avec la liste des galerie photos */
 
+.modalGallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.modal-title {
+  color: black;
+  margin-top: 20px;
+  font-weight: lighter;
+}
+.listGallery {
+}
 .gallery-photo {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
+  margin: 40px 70px 0px 70px;
+  border-bottom: solid 2px #d0d0d0;
 }
 
 .gallery-photo-card {
@@ -98,6 +123,13 @@
 /* fin de la modale galelry  */
 
 /* modale d'ajout */
+.modalAjout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
 #new-photo {
   font-family: "Syne";
   font-weight: 700;
@@ -187,36 +219,4 @@
   border-radius: 60px;
   margin-top: 30px;
   cursor: pointer;
-}
-
-/** modal close **/
-#modal-return {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
-}
-#modal-return i {
-  font-size: 1.3em;
-  display: block;
-}
-#modal-photo-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
-}
-#modal-photo-close i {
-  font-size: 1.3em;
-  display: block;
 }
