@@ -1,14 +1,17 @@
 let allProjects = [];
-let listCategories = ["Tous"];
+let listCategories = [
+  {
+    id: -1,
+    name: "Tous",
+  },
+];
 fetch("http://localhost:5678/api/works")
   .then((response) => {
     if (response.ok) return response.json();
   })
   .then((projets) => {
-    console.log(projets);
     allProjects = projets;
     displayProjects(projets);
-    getAllGategories();
     checkEdit();
   })
   .catch((error) => {
@@ -16,6 +19,25 @@ fetch("http://localhost:5678/api/works")
     alert(
       "Une erreur est survenue! Veuillez contacter l'administrateur du site!! "
     );
+  });
+
+// récupérer dynamiquement les categories
+fetch("http://localhost:5678/api/categories")
+  .then((response) => {
+    if (response.ok) return response.json();
+  })
+  .then((data) => {
+    // affichage les categories avec le create element sur le dom
+    data.forEach((element) => {
+      listCategories.push(element);
+    });
+    createFilterButtons();
+
+    createSelectCategories(data);
+  })
+  .catch((error) => {
+    console.log(error);
+    alert("Une erreur est survenue! Veuillez contacter l'administrateur!");
   });
 
 function displayProjects(projects) {
@@ -46,16 +68,6 @@ function displayProject(projet) {
   return figure;
 }
 
-function getAllGategories() {
-  allProjects.forEach((projet) => {
-    let category = projet.category.name;
-    if (!listCategories.includes(category)) {
-      listCategories.push(category);
-    }
-  });
-
-  createFilterButtons();
-}
 function createFilterButtons() {
   listCategories.forEach((category) => {
     const button = createFilterButton(category);
@@ -75,12 +87,22 @@ function createFilterButton(category) {
   return button;
 }
 
+function createSelectCategories(categories) {
+  const select = document.getElementById("modal-photo-category");
+  categories.forEach((element) => {
+    const option = document.createElement("option");
+    option.value = element.id;
+    option.text = element.name;
+    select.appendChild(option);
+  });
+}
+
 function filter(category) {
-  if (category === "Tous") {
+  if (category.name === "Tous") {
     displayProjects(allProjects);
   } else {
     let tableauResult = allProjects.filter(
-      (projet) => projet.category.name === category
+      (projet) => projet.category.id === category.id
     );
     displayProjects(tableauResult);
   }
