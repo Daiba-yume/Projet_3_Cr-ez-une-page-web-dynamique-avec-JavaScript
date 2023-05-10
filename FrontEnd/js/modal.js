@@ -68,7 +68,14 @@ function editAllProjects() {
   });
 
   const deleteG = document.getElementById("delete-gallery");
-  deleteG.addEventListener("click", function () {});
+  deleteG.addEventListener("click", function () {
+    const confirmation = confirm(
+      "Êtes-vous sûr de vouloir supprimer la galerie ?"
+    );
+    if (confirmation) {
+      deleteGallery();
+    }
+  });
 
   // retourne finalement une dv globale qui contient que le content de edit
   return galleryPhoto;
@@ -121,25 +128,14 @@ function fillCategories() {
 }
 //DELETE WORK//
 function deleteWorkById(worksId) {
-  /*const confirmation = confirm(
+  const confirmation = confirm(
     "Êtes-vous sûr de vouloir supprimer ce travail ?"
   );
-  if (confirmation) {*/
-  deleteFromAPI(worksId);
-  //}
+  if (confirmation) {
+    deleteFromAPI(worksId);
+  }
 }
 
-//Delete all gallery//
-document
-  .getElementById("delete-gallery")
-  .addEventListener("click", function () {
-    const confirmation = confirm(
-      "Êtes-vous sûr de vouloir supprimer la galerie ?"
-    );
-    if (confirmation) {
-      deleteGallery();
-    }
-  });
 function deleteGallery() {
   const galleryWorks = document.querySelectorAll(
     ".gallery-modal figure, .gallery figure"
@@ -149,7 +145,7 @@ function deleteGallery() {
     deleteFromAPI(workId);
   });
 }
-
+// Delete work //
 function deleteFromAPI(idWork) {
   console.log(idWork);
   const token = localStorage.getItem("access_token");
@@ -178,8 +174,18 @@ function deleteFromAPI(idWork) {
             element.remove();
           }
         });
+        //Supprimer le projet depuis la gallery globale
+        const listFigureGallery = document.querySelectorAll(".listGallery");
+        listFigureGallery.forEach((element) => {
+          console.log;
+          if (element.dataset.id == idWork) {
+            element.remove();
+          }
+        });
 
-        alert("La supression du travail a été effectuée avec succes!");
+        alert(
+          "La supression du travail " + idWork + " a été effectuée avec succes!"
+        );
       }
     })
     .catch((error) => {
@@ -253,7 +259,7 @@ function addNewWork(event) {
     })
     .catch((error) => {
       console.error(error);
-      alert("Une erreu est survenue ");
+      alert("Une erreur est survenue ");
     });
 }
 
