@@ -51,7 +51,8 @@ function displayProjects(projects) {
 
 function displayProject(projet) {
   const figure = document.createElement("figure");
-  figure.setAttribute("data_id", projet.id);
+  figure.setAttribute("class", "listGallery");
+  figure.setAttribute("data-id", projet.id);
   const img = document.createElement("img");
   img.setAttribute("src", projet.imageUrl);
   img.setAttribute("alt", projet.title);
@@ -83,7 +84,7 @@ function createFilterButtons() {
 function createFilterButton(category) {
   const button = document.createElement("button");
   button.setAttribute("class", "button-value");
-  button.textContent = category;
+  button.textContent = category.name;
   return button;
 }
 
