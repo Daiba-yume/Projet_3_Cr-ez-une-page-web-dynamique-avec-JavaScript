@@ -266,7 +266,6 @@ function addNewWork(event) {
 /* add work*/
 function previewImage(e) {
   const imagePreview = document.getElementById("imgAjout");
-  const removeImageButton = document.querySelector(".removeImageButton");
 
   const file = e.target.files[0]; // Vérifie si un fichier a été sélectionné
   if (file) {
@@ -281,7 +280,6 @@ function previewImage(e) {
           document.getElementById("buttonloadFile").style.display = "none";
           document.getElementById("file").style.display = "none";
           document.querySelector(".detailsImg").style.display = "none";
-          removeImageButton.style.display = "block";
         };
         reader.readAsDataURL(file);
       } else {
@@ -312,14 +310,4 @@ function previewImage(e) {
     document.querySelector(".detailsImg").style.display = "block";
     removeImageButton.style.display = "none";
   }
-
-  removeImageButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    imagePreview.style.display = "none";
-    document.querySelector(".fa-image").style.display = "block";
-    document.getElementById("buttonloadFile").style.display = "block";
-    document.getElementById("file").style.display = "block";
-    document.querySelector(".detailsImg").style.display = "block";
-    removeImageButton.style.display = "none";
-  });
 }
