@@ -20,7 +20,7 @@ form.addEventListener("submit", function (event) {
       console.log(response);
       if (response.ok) return response.json();
       if (response.status == 404) {
-        alert("Veuillez verifier le login et ou le mot de passe saisis !!");
+        alert("Erreur dans l'identifiant ou le mot de passe");
         return null;
       }
     })
@@ -38,7 +38,7 @@ form.addEventListener("submit", function (event) {
     .catch((error) => {
       console.log(error);
       alert(
-        "Une erreur est survenue ! Veuillez contacter l'administrateur du site !!  ! "
+        "Une erreur est survenue ! Veuillez contacter l'administrateur du site ! "
       );
     });
 });

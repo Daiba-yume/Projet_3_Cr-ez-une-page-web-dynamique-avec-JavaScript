@@ -109,6 +109,8 @@ function filter(category) {
   }
 }
 
+// Connexion administrateur //
+
 function checkEdit() {
   let editProfile = document.getElementById("figure-modify");
   let editProjects = document.getElementById("projects-modify");

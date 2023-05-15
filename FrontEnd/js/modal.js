@@ -84,7 +84,7 @@ function editAllProjects() {
 function createOneCard(works) {
   const figure = document.createElement("figure");
   figure.setAttribute("class", "gallery-photo-card");
-  figure.setAttribute("data-id", works.id); // Add a data-id attribute to store the work ID
+  figure.setAttribute("data-id", works.id); // Add a data-id to store works.is
 
   const figureImage = document.createElement("div");
   figureImage.setAttribute("class", "gallery-photo-card-img");
@@ -159,7 +159,7 @@ function deleteFromAPI(idWork) {
   })
     .then((response) => {
       if (response.status !== 204) {
-        alert("La supression du travail à echoué!");
+        alert("La supression du travail a échoué!");
       } else {
         // supprimer l'element depuis le tableau des all project
 
