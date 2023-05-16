@@ -122,8 +122,10 @@ function checkEdit() {
   // activer le logout
 
   logout.addEventListener("click", function (event) {
-    console.log("logout");
-    localStorage.clear();
+    event.preventDefault();
+    sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("userId");
+    window.location.replace("index.html");
   });
   if (
     localStorage.getItem("userId") != null &&
