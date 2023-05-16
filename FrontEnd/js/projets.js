@@ -126,6 +126,7 @@ function checkEdit() {
     sessionStorage.removeItem("access_token");
     sessionStorage.removeItem("userId");
     window.location.replace("index.html");
+    localStorage.clear();
   });
   if (
     localStorage.getItem("userId") != null &&

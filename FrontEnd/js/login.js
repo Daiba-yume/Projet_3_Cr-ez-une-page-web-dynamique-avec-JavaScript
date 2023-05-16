@@ -19,7 +19,7 @@ form.addEventListener("submit", function (event) {
     .then((response) => {
       console.log(response);
       if (response.ok) return response.json();
-      if (response.status == 404) {
+      if (response.status == 401) {
         alert("Erreur dans l'identifiant ou le mot de passe");
         return null;
       }
