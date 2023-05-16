@@ -1,9 +1,11 @@
+// LOGIN FORM
+
 let form = document.getElementById("form");
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   console.log("test");
-
+  // récupération des champs puis stocké
   let email = document.getElementById("email").value;
   console.log(email);
   let password = document.getElementById("password").value;
@@ -31,7 +33,7 @@ form.addEventListener("submit", function (event) {
         // stoker les info dans le localStorage
         localStorage.setItem("access_token", data.token);
         localStorage.setItem("userId", data.userId);
-
+        // redirection
         window.location.href = "./index.html";
       }
     })

@@ -1,4 +1,6 @@
 // Show and hide modal //
+
+// Récupération des éléments du DOM en utilisant leur ID ou leur classe//
 const editProjects = document.getElementById("editProject");
 const modal = document.getElementById("modal");
 const modalClose = document.querySelector("#modal-close");
@@ -7,6 +9,7 @@ const modalGallery = document.querySelector(".modalGallery");
 const modalAjout = document.querySelector(".modalAjout");
 const newPhoto = document.getElementById("new-photo");
 
+// gérer le clic //
 editProjects.addEventListener("click", function (event) {
   const modalContent = document.querySelector(".listGallery");
   modalContent.innerHTML = "";
@@ -57,6 +60,7 @@ window.onclick = function (event) {
   }
 };
 
+// création de la gallery photo dans la modal //
 function editAllProjects() {
   const galleryPhoto = document.createElement("div");
   galleryPhoto.setAttribute("class", "gallery-photo");
@@ -67,6 +71,7 @@ function editAllProjects() {
     galleryPhoto.appendChild(card);
   });
 
+  // suppression de la galerie
   const deleteG = document.getElementById("delete-gallery");
   deleteG.addEventListener("click", function () {
     const confirmation = confirm(
@@ -81,6 +86,7 @@ function editAllProjects() {
   return galleryPhoto;
 }
 
+// création des cards //
 function createOneCard(works) {
   const figure = document.createElement("figure");
   figure.setAttribute("class", "gallery-photo-card");
@@ -114,6 +120,7 @@ function createOneCard(works) {
   return figure;
 }
 
+// Select category //
 function fillCategories() {
   const selectCategory = document.getElementById("modal-photo-category");
 
@@ -126,7 +133,8 @@ function fillCategories() {
     selectCategory.appendChild(categoryOption);
   });
 }
-//DELETE WORK//
+//DELETE WORK FROM API//
+
 function deleteWorkById(worksId) {
   const confirmation = confirm(
     "Êtes-vous sûr de vouloir supprimer ce travail ?"
@@ -136,6 +144,7 @@ function deleteWorkById(worksId) {
   }
 }
 
+// suppression de tout les travaux dans la galerie grâce à l'ID
 function deleteGallery() {
   const galleryWorks = document.querySelectorAll(
     ".gallery-modal figure, .gallery figure"
@@ -165,7 +174,7 @@ function deleteFromAPI(idWork) {
 
         allProjects = allProjects.filter((element) => element.id !== idWork);
 
-        //Supprimer le projet depuis la gallery
+        //Supprimer le projet depuis la gallery modal
         const listFigureModal = document.querySelectorAll(
           ".gallery-photo-card"
         );
@@ -263,7 +272,7 @@ function addNewWork(event) {
     });
 }
 
-/* add work*/
+/* PREVIEW IMAGE */
 function previewImage(e) {
   const imagePreview = document.getElementById("imgAjout");
 

@@ -1,10 +1,15 @@
+// stocker tous les projets récupérés
 let allProjects = [];
+
+// category
 let listCategories = [
   {
     id: -1,
     name: "Tous",
   },
 ];
+
+// Récupération des projets
 fetch("http://localhost:5678/api/works")
   .then((response) => {
     if (response.ok) return response.json();
@@ -27,8 +32,8 @@ fetch("http://localhost:5678/api/categories")
     if (response.ok) return response.json();
   })
   .then((data) => {
-    // affichage les categories avec le create element sur le dom
     data.forEach((element) => {
+      // category ajouté
       listCategories.push(element);
     });
     createFilterButtons();
@@ -40,6 +45,8 @@ fetch("http://localhost:5678/api/categories")
     alert("Une erreur est survenue! Veuillez contacter l'administrateur!");
   });
 
+// Affichage des projets dans la gallery
+
 function displayProjects(projects) {
   const gallery = document.querySelector(".gallery");
   gallery.innerHTML = "";
@@ -49,6 +56,7 @@ function displayProjects(projects) {
   });
 }
 
+// Création d'un projet "figure"
 function displayProject(projet) {
   const figure = document.createElement("figure");
   figure.setAttribute("class", "listGallery");
@@ -69,6 +77,7 @@ function displayProject(projet) {
   return figure;
 }
 
+// Buttons filters criteria
 function createFilterButtons() {
   listCategories.forEach((category) => {
     const button = createFilterButton(category);
@@ -88,6 +97,7 @@ function createFilterButton(category) {
   return button;
 }
 
+// category selected
 function createSelectCategories(categories) {
   const select = document.getElementById("modal-photo-category");
   categories.forEach((element) => {
@@ -98,6 +108,7 @@ function createSelectCategories(categories) {
   });
 }
 
+// filtre les projets en fonction de la category selected
 function filter(category) {
   if (category.name === "Tous") {
     displayProjects(allProjects);
@@ -112,6 +123,7 @@ function filter(category) {
 // Connexion administrateur //
 
 function checkEdit() {
+  // récupération des elemts du DOM ensuite stockés
   let editProfile = document.getElementById("figure-modify");
   let editProjects = document.getElementById("projects-modify");
   let adminStatus = document.getElementById("admin-logged");
@@ -119,8 +131,8 @@ function checkEdit() {
   let buttons = document.getElementById("buttons");
   let login = document.querySelector(".login-tab");
   let logout = document.querySelector(".logout-tab");
-  // activer le logout
 
+  // button logout
   logout.addEventListener("click", function (event) {
     event.preventDefault();
     sessionStorage.removeItem("access_token");
@@ -128,6 +140,7 @@ function checkEdit() {
     window.location.replace("index.html");
     localStorage.clear();
   });
+  // user is connected
   if (
     localStorage.getItem("userId") != null &&
     localStorage.getItem("access_token") != null
