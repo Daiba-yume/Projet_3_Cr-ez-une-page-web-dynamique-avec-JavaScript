@@ -11,6 +11,7 @@ form.addEventListener("submit", function (event) {
   let password = document.getElementById("password").value;
   console.log(password);
 
+  // envoie des données au serveur pr l'authentification
   let options = {
     method: "POST",
     headers: { Accept: "application/json", "Content-Type": "application/json" },
