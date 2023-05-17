@@ -237,6 +237,7 @@ function addNewWork(event) {
     return;
   }
 
+  // créer un objet contenant les données du formulaire
   const formData = new FormData();
   formData.append("title", title);
   formData.append("category", category);
