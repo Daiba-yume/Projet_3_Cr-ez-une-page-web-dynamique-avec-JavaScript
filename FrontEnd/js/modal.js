@@ -122,44 +122,42 @@ function fillCategories() {
     selectCategory.appendChild(categoryOption);
   });
 }
-
-// Suppression de la galerie
-function deleteGallery() {
+// Delete gallery //
+function deleteAllProject() {
   const token = localStorage.getItem("access_token");
-  const galleryWorks = document.querySelectorAll(
-    ".gallery-modal figure, .gallery figure"
-  );
-  galleryWorks.innerHTML = "";
-  const workIds = Array.from(galleryWorks).map((galleryWork) =>
-    galleryWork.getAttribute("data-id")
-  );
 
-  fetch("http://localhost:5678/api/works/batch-delete", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ workIds }),
-  })
-    .then((response) => {
-      if (response.status === 204) {
-        galleryWorks.forEach((galleryWork) => {
-          galleryWork.remove();
-        });
-        alert("La galerie a été supprimée avec succès !");
-      } else {
-        alert("La suppression de la galerie a échoué !");
-      }
+  isOk = true;
+  console.table(allProjects);
+  allProjects.forEach((element) => {
+    fetch(`http://localhost:5678/api/works/${element.id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     })
-    .catch((error) => {
-      console.error(
-        "Une erreur s'est produite lors de la suppression :",
-        error
-      );
-      alert("Une erreur s'est produite lors de la suppression de la galerie.");
-    });
+      .then((response) => {
+        if (response.status != 204) {
+          alert("La supression du travail a échoué!");
+          isOk = false;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        isOk = false;
+        alert("Une erreur est survenue !! ");
+      });
+  });
+
+  // supprimer l'element depuis le tableau des all project
+  allProjects = [];
+
+  //Supprimer le projet depuis la gallery modal
+  const listFigureModal = document.querySelector(".gallery-photo");
+  listFigureModal.innerHTML = "";
+  //Supprimer le projet depuis la gallery globale
+  const listFigureGallery = document.querySelector(".gallery");
+  listFigureGallery.innerHTML = "";
 }
 
 document
@@ -169,11 +167,9 @@ document
       "Êtes-vous sûr de vouloir supprimer la galerie ?"
     );
     if (confirmation) {
-      deleteGallery();
+      deleteAllProject();
     }
   });
-
-// ...
 
 //DELETE WORK FROM API//
 
