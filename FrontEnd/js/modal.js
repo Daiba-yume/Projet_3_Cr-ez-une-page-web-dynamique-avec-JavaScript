@@ -71,17 +71,6 @@ function editAllProjects() {
     galleryPhoto.appendChild(card);
   });
 
-  // suppression de la galerie
-  const deleteG = document.getElementById("delete-gallery");
-  deleteG.addEventListener("click", function () {
-    const confirmation = confirm(
-      "Êtes-vous sûr de vouloir supprimer la galerie ?"
-    );
-    if (confirmation) {
-      deleteGallery();
-    }
-  });
-
   // retourne finalement une dv globale qui contient que le content de edit
   return galleryPhoto;
 }
@@ -133,6 +122,35 @@ function fillCategories() {
     selectCategory.appendChild(categoryOption);
   });
 }
+
+// suppression de la galerie
+function deleteGallery() {
+  const token = sessionStorage.getItem("access_token");
+  const galleryWorks = document.querySelectorAll(
+    ".gallery-modal figure, .gallery figure"
+  );
+  galleryWorks.forEach((galleryWork) => {
+    const workId = galleryWork.getAttribute("data-id");
+    fetch(`http://localhost:5678/api/works/${workId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    galleryWork.remove();
+  });
+}
+document
+  .getElementById("delete-gallery")
+  .addEventListener("click", function () {
+    const confirmation = confirm(
+      "Êtes-vous sûr de vouloir supprimer la galerie ?"
+    );
+    if (confirmation) {
+      deleteGallery();
+    }
+  });
 //DELETE WORK FROM API//
 
 function deleteWorkById(worksId) {
