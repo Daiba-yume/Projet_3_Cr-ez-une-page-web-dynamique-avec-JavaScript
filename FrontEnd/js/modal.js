@@ -123,24 +123,45 @@ function fillCategories() {
   });
 }
 
-// suppression de la galerie
+// Suppression de la galerie
 function deleteGallery() {
   const token = sessionStorage.getItem("access_token");
   const galleryWorks = document.querySelectorAll(
     ".gallery-modal figure, .gallery figure"
   );
-  galleryWorks.forEach((galleryWork) => {
-    const workId = galleryWork.getAttribute("data-id");
-    fetch(`http://localhost:5678/api/works/${workId}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+  galleryWorks.innerHTML = "";
+  const workIds = Array.from(galleryWorks).map((galleryWork) =>
+    galleryWork.getAttribute("data-id")
+  );
+
+  fetch("http://localhost:5678/api/works/batch-delete", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ workIds }),
+  })
+    .then((response) => {
+      if (response.status === 204) {
+        galleryWorks.forEach((galleryWork) => {
+          galleryWork.remove();
+        });
+        alert("La galerie a été supprimée avec succès !");
+      } else {
+        alert("La suppression de la galerie a échoué !");
+      }
+    })
+    .catch((error) => {
+      console.error(
+        "Une erreur s'est produite lors de la suppression :",
+        error
+      );
+      alert("Une erreur s'est produite lors de la suppression de la galerie.");
     });
-    galleryWork.remove();
-  });
 }
+
 document
   .getElementById("delete-gallery")
   .addEventListener("click", function () {
@@ -151,6 +172,9 @@ document
       deleteGallery();
     }
   });
+
+// ...
+
 //DELETE WORK FROM API//
 
 function deleteWorkById(worksId) {
@@ -167,6 +191,7 @@ function deleteGallery() {
   const galleryWorks = document.querySelectorAll(
     ".gallery-modal figure, .gallery figure"
   );
+
   galleryWorks.forEach((galleryWork) => {
     const workId = galleryWork.getAttribute("data-id");
     deleteFromAPI(workId);
@@ -209,10 +234,6 @@ function deleteFromAPI(idWork) {
             element.remove();
           }
         });
-
-        alert(
-          "La supression du travail " + idWork + " a été effectuée avec succes!"
-        );
       }
     })
     .catch((error) => {
