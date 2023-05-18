@@ -125,7 +125,7 @@ function fillCategories() {
 
 // Suppression de la galerie
 function deleteGallery() {
-  const token = sessionStorage.getItem("access_token");
+  const token = localStorage.getItem("access_token");
   const galleryWorks = document.querySelectorAll(
     ".gallery-modal figure, .gallery figure"
   );
